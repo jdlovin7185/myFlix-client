@@ -1,54 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export class LoginView extends React.Component {
-  constructor(props) {
-    super(props);
+export function LoginView(props) {
+  const [ username, setUsername ] = useState('');
+  const [ password, setPassword ] = useState('');
+  
 
-    this.state = {
-      username: '',
-      password: ''
-    };
-
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  onUsernameChange(event) {
-    this.setState({
-      username: event.target.value
-    });
-  }
-
-  onPasswordChange(event) {
-    this.setState({
-        password: <event className="target value"></event>
-      });
-    }
-
-  handleSubmit(){
-    const { username, password } = this.state;
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(username, password);
-    /*Sends a request to the server for authentication */
-    /* then call this.props.onLoggedIn(username)*/
-  }
+    props.onLoggedIn(username)
+  };
 
-  render() {
     return (
       <form>
         <label>
           Username:
-          <input type="text" value={this.state.username} 
-          onChange={this.onUsernameChange}/>
+          <input type="text" value={username} 
+          onChange={e => setUsername(e.target.value)}/>
         </label>
         <label>
           Password:
-          <input type="text" value={this.state.password} 
-          onChange={this.onPasswordChange}/>
+          <input type="password" value={password} 
+          onChange={e => setPassword(e.target.value)}/>
         </label>
         <button type="button" 
-        onChange={this.handleSubmit}>Submit</button>
+        onClick={handleSubmit}>Submit</button>
       </form>
     );
   }
-}
