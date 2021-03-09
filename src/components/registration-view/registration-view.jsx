@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import './registration-view.scss';
+
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -15,10 +17,10 @@ export function RegistrationView(props) {
   };
 
   return (
-    <Form>
+    <Form className="registration-form">
       <Form.Group controlId="formGroupUsername">
           <Form.Label>Username:</Form.Label>
-          <Form.Control type="username sm" value={username}
+          <Form.Control type="username" value={username}
       onChange={e => setUsername(e.target.value)}/>
       </Form.Group>
       <Form.Group controlId="formGroupPassword">
