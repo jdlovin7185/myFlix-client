@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from '../registration-view/registration-view';
 
 export class MainView extends React.Component {
 
@@ -14,7 +15,9 @@ export class MainView extends React.Component {
 
     this.state = {
       movies: null,
-      selectedMovie: null
+      selectedMovie: null,
+      user: null,
+      register: null
     };
   }
 
@@ -37,17 +40,28 @@ export class MainView extends React.Component {
     });
   }
 
+  onRegistered(register) {
+    this.setState({
+      register
+    });
+  }
+
   onLoggedIn(user) {
     this.setState({
       user
     });
   }
 
+
     render() {
-      const {movies, selectedMovie, user} = this.state;
+      const {movies, selectedMovie, user, register} = this.state;
+      
+      if (!register) return <RegistrationView onRegistered={register =>
+        this.onRegistered(register)} />;
 
       if (!user) return <LoginView onLoggedIn={user => 
         this.onLoggedIn(user)} />;
+
 
       // before the movies have been loaded
       if (!movies) return <div className="main-view"/>;
