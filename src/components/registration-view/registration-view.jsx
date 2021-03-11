@@ -18,6 +18,7 @@ export function RegistrationView(props) {
 
   return (
     <Form className="registration-form">
+      <h2>Welcome to the registration page!</h2>
       <Form.Group controlId="formGroupUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control type="username" value={username}
@@ -39,4 +40,13 @@ export function RegistrationView(props) {
       </Button>
     </Form>
   );
+}
+
+RegistrationView.propTypes = {
+  register: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
+  }),
+  onRegistered: PropTypes.func
 }
