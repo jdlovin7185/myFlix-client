@@ -21,18 +21,18 @@ export class MainView extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   axios.get('https://myflix1-0.herokuapp.com/movies')
-  //   .then(response => {
-  //     // Assign the result to the state
-  //     this.setState({
-  //       movies: response.data
-  //     });
-  //   }) 
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }
+  componentDidMount() {
+    axios.get('https://myflix1-0.herokuapp.com/movies')
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    }) 
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   onMovieClick(movie) {
     this.setState({
@@ -40,19 +40,19 @@ export class MainView extends React.Component {
     });
   }
 
-  getMovies(token) {
-    axios.get('https://myflix1-0.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(response => {
-      this.setState({
-        movies: response.data
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  // getMovies(token) {
+  //   axios.get('https://myflix1-0.herokuapp.com/movies', {
+  //     headers: { Authorization: `Bearer ${token}`}
+  //   })
+  //   .then(response => {
+  //     this.setState({
+  //       movies: response.data
+  //     });
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }
 
   onRegistered(register) {
     this.setState({
@@ -60,15 +60,15 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(authData) {
+  onLoggedIn(user) {
     console.log(authData);
     this.setState({
-      user: authData.user.Username
+      user
     });
 
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
-    this.getMovies(authData.token);
+    // localStorage.setItem('token', authData.token);
+    // localStorage.setItem('user', authData.user.Username);
+    // this.getMovies(authData.token);
   }
 
 

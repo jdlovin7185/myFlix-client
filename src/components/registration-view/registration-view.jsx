@@ -18,6 +18,7 @@ export function RegistrationView(props) {
 
   return (
     <Form className="registration-form">
+      <h1>Welcome to the registration page!</h1>
       <Form.Group controlId="formGroupUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control type="username" value={username}

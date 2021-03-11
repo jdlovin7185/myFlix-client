@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
@@ -12,7 +13,7 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://myflix1-0.herokuapp.com/users', {
+    axios.post('https://myflix1-0.herokuapp.com/movies', {
       Username: username,
       Password: password
     })
@@ -45,3 +46,11 @@ export function LoginView(props) {
       </Form>
     );
 }
+
+LoginView.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+  }).isRequired,
+  onLoggedIn: PropTypes.func
+};
