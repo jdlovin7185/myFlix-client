@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import './registration-view.scss';
+import axios from 'axios';
 
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
@@ -12,8 +13,21 @@ export function RegistrationView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email);
-    props.onRegistered(username)
+    axios.post('https://myflix1-0.herokuapp.com/users', {
+    Username: username,
+    Password: password,
+    Email: email
+    })
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        window.open('/','_self');
+        // The second argument '_self' is necessary so that 
+        // the page will open in the current tab 
+    })
+      .catch(e => {
+        console.log('error registering the user')
+    });
   };
 
   return (
