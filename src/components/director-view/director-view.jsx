@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './director-view.scss';
 
@@ -25,12 +24,9 @@ export class DirectorView extends React.Component {
           <Card.Title>{movie.Director.name}</Card.Title>
           <Card.Body>
             <Card.Text>{movie.Director.Bio}</Card.Text>
-            <Card.Text>Director: {movie.Director.Birth}</Card.Text>
-            <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
+            <Card.Text>`Born: ${movie.Director.Birth}`</Card.Text>
           </Card.Body>
         </Card>
-        <Card.Footer>
-        </Card.Footer>
       </div>
     );
   }
@@ -38,6 +34,9 @@ export class DirectorView extends React.Component {
 
 DirectorView.propTypes = {
   movie: PropTypes.shape({
-    Director: PropTypes.object.isRequired,
+    Director: {
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired
+    },
   })
 }
