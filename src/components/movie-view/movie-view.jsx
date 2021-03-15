@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
 
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Image} from 'react-bootstrap';
 
 export class MovieView extends React.Component {
 
@@ -22,7 +22,7 @@ export class MovieView extends React.Component {
     return (
       <div className="movie-view movie-border">
         <Card>
-          <Card.Img className="movie-poster" src={movie.ImagePath}/>
+          <Image className="movie-poster" src={movie.ImagePath} rounded/>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Body>
             <Card.Text>{movie.Description}</Card.Text>
