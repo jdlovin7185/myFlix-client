@@ -50,13 +50,6 @@ export class MainView extends React.Component {
       this.getMovies(accessToken);
     }
   }
-  
-
-  onRegistered(register) {
-    this.setState({
-      register
-    });
-  }
 
   onLoggedIn(authData) {
     console.log(authData);
@@ -92,21 +85,18 @@ export class MainView extends React.Component {
 
               <Route path="/register" render={() => <RegistrationView />} />
 
-              {/* <Route exact path="/" render={() =>
-              movies.map( m => <MovieCard key={m._id} movie={m}/>)}/> */}
-
               <Route path="/movies/:movieId" render={({match}) =>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
 
-              <Route exact path="/director/:name" render={({ match }) => {
+              <Route path="/director/:name" render={({match}) => {
                 // if (!movies) return <div className="main-view"/>;
-                return <DirectorView director={movies.find(m =>
-                  m.Director.Name === match.params.name).Director}/>}
+              return <DirectorView movies={movies.find(m =>
+                  m.Director.Name === match.params.name)}/>}
               }/>
 
               <Route path="/genre/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view"/>;
-                return <GenreView genre={movies.find(m =>
+                // if (!movies) return <div className="main-view"/>;
+                return <GenreView movies={movies.find(m =>
                   m.Genre.Name === match.params.name).Genre}/>}
               }/>
 
