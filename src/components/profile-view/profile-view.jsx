@@ -49,6 +49,7 @@ export class ProfileView extends React.Component {
     })
     .then(response => {
       this.setState({
+        // Returns a null user
         Username: response.data.Username,
         Password: response.data.Password,
         Email: response.data.Email,
