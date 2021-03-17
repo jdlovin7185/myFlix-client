@@ -11,7 +11,7 @@ import './login-view.scss';
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +28,7 @@ export function LoginView(props) {
     console.log(e)
     });
   };
+
 
     return (
       <Form className="login-border"> 
@@ -48,6 +49,9 @@ export function LoginView(props) {
         </Button>
         <Link to={`/register`}>
           <Button variant="link">Register</Button>
+        </Link>
+        <Link to={`/users/:Username`}>
+          <Button variant="link">Profile</Button>
         </Link>
       </Form>
     );
