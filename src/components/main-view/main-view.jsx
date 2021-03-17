@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 
@@ -123,7 +124,8 @@ export class MainView extends React.Component {
                   m.Genre.Name === match.params.name)}/>}
               }/>
 
-              <Route path="/users/:Username" render={() => <ProfileView />}/>
+              <Route path="/users/:Username" render={() => {
+              return <ProfileView movies={movies} />}}/>
 
 
           </div>
