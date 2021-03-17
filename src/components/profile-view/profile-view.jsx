@@ -27,7 +27,7 @@ export class ProfileView extends React.Component {
   }
 
   getUser(token) {
-    axios.get('https://myflix1-0.herokuapp.com/users/${user}', {
+    axios.get('https://myflix1-0.herokuapp.com/users/${Username}', {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then(response => {
@@ -85,23 +85,19 @@ export class ProfileView extends React.Component {
 }
 
   render() {
-    const {movies, users} = this.state;
-    
-    // if (!register) return <RegistrationView onRegistered={register =>
-    //   this.onRegistered(register)} />;
-
+    const {movies, user} = this.state;
 
     // before the movies have been loaded
-    if (!users) return <div className="profile-view"/>;
+    if (!user) return <p>:')</p>;
 
     return (
       <div className="profile-view">
          <Card>
           <Card.Title>Profile info</Card.Title>
           <Card.Body>
-            <Card.Text>{users.Username}</Card.Text>
-            <Card.Text>{users.Email}</Card.Text>
-            <Card.Text>{users.FavoriteMovie}</Card.Text>              
+            <Card.Text>{user.Username}</Card.Text>
+            <Card.Text>{user.Email}</Card.Text>
+            <Card.Text>{user.FavoriteMovie}</Card.Text>              
           </Card.Body>
         </Card>
         {/* <Form className="updateInfo-form">
