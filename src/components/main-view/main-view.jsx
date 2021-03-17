@@ -3,7 +3,6 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 
@@ -52,6 +51,16 @@ export class MainView extends React.Component {
     }
   }
 
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null,
+    });
+    alert('You have been logged out');
+    window.open('/', '_self');
+  }
+
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -78,29 +87,15 @@ export class MainView extends React.Component {
         
         <Router>
           <div className="main-view">
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-         <Nav className="mr-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-      <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-      </NavDropdown>
-       </Nav>
-    <Nav>
-      <Nav.Link href="#deets">More deets</Nav.Link>
-      <Nav.Link eventKey={2} href="#memes">
-        Dank memes
-      </Nav.Link>
-    </Nav>
-  </Navbar.Collapse>
-</Navbar>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand>MyFlix</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link onClick={() => this.onLoggedOut()}>Logout</Nav.Link>
+                </Nav>
+          </Navbar.Collapse>
+          </Navbar>
 
               <Route exact path="/" render={() => {
                 if(!users) return <LoginView onLoggedIn={user =>
@@ -112,6 +107,9 @@ export class MainView extends React.Component {
 
               <Route path="/movies/:movieId" render={({match}) =>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+
+              <Route exact path="/" render={() =>
+              movies.map( m => <MovieCard key={m._id} movie={m}/>)}/>
 
               <Route path="/director/:name" render={({match}) => {
                 // if (!movies) return <div className="main-view"/>;
@@ -125,11 +123,7 @@ export class MainView extends React.Component {
                   m.Genre.Name === match.params.name)}/>}
               }/>
 
-              <Route path="/users/:username" render={({match}) => {
-                // if (!movies) return <div className="main-view"/>;
-                return <ProfileView users={users.find(m =>
-                  m.Users.Username === match.params.username)}/>}
-              }/>
+              <Route path="/users/:Username" render={() => <ProfileView />}/>
 
 
           </div>
