@@ -47,12 +47,6 @@ export function LoginView(props) {
         onClick={handleSubmit}>
           Submit
         </Button>
-        <Link to={`/register`}>
-          <Button variant="link">Register</Button>
-        </Link>
-        <Link to={`/users/:Username`}>
-          <Button variant="link">Profile</Button>
-        </Link>
       </Form>
     );
 }
