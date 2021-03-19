@@ -52,7 +52,7 @@ export class MainView extends React.Component {
       this.getMovies(accessToken);
     }
   }
-
+  // Logs user out
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -62,7 +62,7 @@ export class MainView extends React.Component {
     alert('You have been logged out');
     window.open('/', '_self');
   }
-
+  // Logs user in
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -73,6 +73,8 @@ export class MainView extends React.Component {
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
   }
+  
+  // Updates user info
   onUpdatedUserInfo(authData) {
     console.log(authData);
     this.setState({
@@ -80,10 +82,41 @@ export class MainView extends React.Component {
     });
     localStorage.setItem('user', authData.user.Username);
   }
+    
+  getUser(token) {
+    let url = `https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}`;
+    axios.get(url, {headers: {Authorization: `Bearer ${token}`},
+  })
+  .then((response) => {
+    this.setState({
+      Username: response.data.Username,
+      Email: response.data.Email,
+      FavoriteMovies: response.data.FavoriteMovies,
+    });
+  });
+ }
 
+// Removes a user from the database
+  removeUser(token) {
+        let url = `https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}`;
+        axios.delete(url, {headers: {Authorization: `Bearer ${token}`}
+        }) 
+        .then(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+          this.setState({
+            user: null,
+      });
+      alert('Your account has been deleted');
+      })
+      .catch(e => {
+        console.log(e)
+      });
+    };
 
     render() {
       const {movies, user} = this.state;
+
       
       // if (!register) return <RegistrationView onRegistered={register =>
       //   this.onRegistered(register)} />;
@@ -102,15 +135,16 @@ export class MainView extends React.Component {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                   <Nav.Link onClick={() => this.onLoggedOut()}>Logout</Nav.Link>
+                  <Nav.Link onClick={() => this.removeUser()}>Deactivate Account</Nav.Link>
                 </Nav>
-          </Navbar.Collapse>
-          </Navbar>
-          <Link to={`/register`}>
-          <Button variant="link">Register</Button>
-        </Link>
-        <Link to={`/users/:Username`}>
-          <Button variant="link">Profile</Button>
-        </Link>
+            </Navbar.Collapse>
+           </Navbar>
+            <Link to={`/register`}>
+                <Button variant="link">Register</Button>
+            </Link>
+            <Link to={`/users/:Username`}>
+                <Button variant="link">Profile</Button>
+            </Link>
 
               <Route exact path="/" render={() => {
                 if(!user) return <LoginView onLoggedIn={user =>
@@ -139,7 +173,10 @@ export class MainView extends React.Component {
               }/>
 
               <Route path="/users/:Username" render={() => {
-              return <ProfileView movies={movies} onUpdatedUserInfo={this.onUpdatedUserInfo} />}}/>
+              return <ProfileView movies={movies} 
+              onUpdatedUserInfo={this.onUpdatedUserInfo} 
+              getMovies={this.getMovies} 
+              getUser={this.getUser}/>}}/>
 
 
           </div>

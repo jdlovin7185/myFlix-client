@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card'
 
 import './profile-view.scss';
 import axios from 'axios';
@@ -10,8 +11,8 @@ export function ProfileView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-console.log(localStorage.getItem('user'));
-  const handleSubmit = (e) => {
+
+  const handleUpdate = (e) => {
     e.preventDefault();
     axios.put(`https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}`,
      {
@@ -24,16 +25,33 @@ console.log(localStorage.getItem('user'));
         const data = response.data;
         props.onUpdatedUserInfo(data);
         console.log(data);
-        alert('Updated!')
-        // The second argument '_self' is necessary so that 
-        // the page will open in the current tab 
+        alert('Updated!') 
     })
       .catch(e => {
         console.log(e)
     });
   };
 
+  const getUser = (e) => {
+    e.preventDefault();
+    let token = localStorage.getItem('token');
+    axios.get(`https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}` , 
+    { headers: {Authorization: `Bearer ${token}`},
+      Username: username,
+      Email: email
+    })
+    .then(response => {
+      const data = response.data;
+      props.getMovies(data);
+      console.log(data);
+    })
+    .catch(e => {
+      console.log(e)
+    });
+  }
+
   return (
+    <div>
     <Form className="profile-form">
       <h2>Want to change some info?</h2>
       <Form.Group controlId="formBasicUsername">
@@ -58,10 +76,27 @@ console.log(localStorage.getItem('user'));
           onChange={e => setEmail(e.target.value)} />
       </Form.Group>
       <Button variant="primary" type="submit" 
-        onClick={handleSubmit}>
+        onClick={handleUpdate}>
           Update
       </Button>
     </Form>
+    <Card>
+        <Card.Body>
+          <Card.Title>Username: {localStorage.getItem('user')}</Card.Title>
+          <Card.Text>{localStorage.getItem('FavoriteMovies')}</Card.Text>
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Body>
+          <Card.Title>EFAWFEFEWFAEFEWEFWAEFWAEFWEAFW</Card.Title>
+          <Card.Text>Favorite Movies: {localStorage.getItem('user')}</Card.Text>
+        </Card.Body>
+        <Button variant="primary" type="submit" 
+        onClick={getUser}>
+          My Movies
+      </Button>
+      </Card>
+  </div>
   );
 }
 
@@ -93,49 +128,3 @@ console.log(localStorage.getItem('user'));
 //       console.log(error);
 //     });
 //   }
-
-//   updateUser(user) {
-//     let url = 'https://myflix1-0.herokuapp.com/users/' +
-//     localStorage.getItem("user");
-//     axios.put(url, {headers: {Authorization: `Bearer ${token}`}
-//     })
-//     .then(response => {
-//       this.setState({
-//         Username: response.data.Username,
-//         Password: response.data.Password,
-//         Email: response.data.Email,
-//         FavoriteMovies: response.data.FavoriteMovies
-//       });
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-//   }
-
-//   removeFav(movie) {
-//     let url = 'https://myflix1-0.herokuapp.com/users/' +
-//     localStorage.getItem("user");
-//     axios.delete(url, {headers: {Authorization: `Bearer ${token}`}
-//     })
-//     .then(response => {
-//       this.setState
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-//   }
-
-//   removeUser() {
-//     let url = 'https://myflix1-0.herokuapp.com/users/' +
-//     localStorage.getItem("user");
-//     axios.delete(url, {headers: {Authorization: `Bearer ${token}`}
-//     })
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('user');
-//       this.setState({
-//         user: null,
-//   });
-//   alert('Your account has been deleted');
-//   window.open('/', '_self');
-// }
-// }
