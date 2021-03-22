@@ -131,13 +131,13 @@ export class MainView extends React.Component {
         <Router>
           <div className="main-view">
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand>MyFlix</Navbar.Brand>
+            <Navbar.Brand href="/">MyFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                   <Link to={`/register`}>Register</Link>
-                  <Link to={`/userinfo/${user}`}>MyMovies</Link>
-                  <Link to={`/user/${user}`}>Profile</Link>
+                  <Link to={`/userinfo/${user}`}>Profile</Link>
+                  <Link to={`/user/${user}`}>Need to update info?</Link>
                   <Nav.Link onClick={() => this.onLoggedOut()}>Logout</Nav.Link>
                   <Nav.Link onClick={() => this.removeUser()}>Deactivate Account</Nav.Link>
                 </Nav>
