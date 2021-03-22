@@ -135,14 +135,14 @@ export class MainView extends React.Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
+                  <Link to={`/register`}>Register</Link>
+                  <Link to={`/userinfo/${user}`}>MyMovies</Link>
+                  <Link to={`/user/${user}`}>Profile</Link>
                   <Nav.Link onClick={() => this.onLoggedOut()}>Logout</Nav.Link>
                   <Nav.Link onClick={() => this.removeUser()}>Deactivate Account</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
            </Navbar>
-            <Link to={`/register`}>Register</Link>
-            <Link to={`/userinfo/${user}`}>MyMovies</Link>
-            <Link to={`/user/${user}`}>Profile</Link>
 
               <Route exact path="/" render={() => {
                 if(!user) return <LoginView onLoggedIn={user =>
@@ -176,7 +176,8 @@ export class MainView extends React.Component {
 
               <Route path="/userinfo/:Username" render={() => {
                 // if (!movies) return <div className="main-view"/>;
-                return <ProfileViewInfo user={user}/>}}/>
+                return <ProfileViewInfo user={user}
+                movies={movies}/>}}/>
           </div>
         </Router>
       );

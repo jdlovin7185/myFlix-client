@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import './profile-view-info.scss';
 
@@ -44,8 +45,17 @@ export class ProfileViewInfo extends React.Component {
   });
  }
 
+
+
   render() {
-    const { movies, user } = this.state;
+    const { movies } = this.props;
+    const { user } = this.state;
+
+    const favoriteMovieList = movies.filter((movies) => {
+      return this.state.user.FavoriteMovies.includes(movies._id);
+    });
+    
+
 
     if (!user) return null;
 
@@ -55,11 +65,32 @@ export class ProfileViewInfo extends React.Component {
         <Card.Body>
           <Card.Title>User: {user.Username}</Card.Title>
           <Card.Text>Email: {user.Email}</Card.Text>
-          <Card.Text>FavoriteMovies: {user.FavoriteMovies}</Card.Text>
-          <Card.Text>{movies}</Card.Text>
+          <Card.Text></Card.Text>
         </Card.Body>
       </Card>
-      </div>
+      <div>
+        <h2>Favorite Movies</h2>
+        {favoriteMovieList.map((movies) => {
+          return (
+            <div key={movies._id}>
+              <Card>
+                <Card.Img src={movies.ImagePath}/>
+                <Card.Body>
+                  <Link to={`/movies/${movies._id}`}>
+                    <Card.Title>{movies.Title}</Card.Title>
+                  </Link>
+                </Card.Body>
+              </Card>
+          </div>
+          )
+        })
+      }
+  </div>
+  </div>
     );
   }
 }
+
+ProfileViewInfo.propTypes = {
+  movies: PropTypes.array.isRequired,
+};

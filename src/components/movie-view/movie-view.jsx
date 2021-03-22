@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
+import axios from 'axios';
 
 import {Card, Button, Image} from 'react-bootstrap';
 
@@ -11,6 +12,17 @@ export class MovieView extends React.Component {
     super();
 
     this.state = {};
+  }
+
+  addToFav(movie) {
+  let token = localStorage.getItem('token');
+  let url = 'https://myflix1-0.herokuapp.com/users/' + localStorage.getItem('user') + '/movies/' + movie._id;
+  axios.post(url, {headers: {Authorization: `Bearer ${token}`},
+  })
+  .then((response) => {
+    console.log(response);
+  });
+  alert('Added to the list!');
   }
 
   render() {
@@ -37,6 +49,7 @@ export class MovieView extends React.Component {
           <Link to={`/genre/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
+            <Button variant="secondary" onClick={() => this.addToFav(movie)}>Add to Favorites</Button>
         </Card.Footer>
       </div>
     );
