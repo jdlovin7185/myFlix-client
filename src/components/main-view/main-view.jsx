@@ -15,6 +15,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
+import { ProfileViewInfo } from '../profile-view-movies/profile-view-info';
 
 export class MainView extends React.Component {
 
@@ -139,12 +140,9 @@ export class MainView extends React.Component {
                 </Nav>
             </Navbar.Collapse>
            </Navbar>
-            <Link to={`/register`}>
-                <Button variant="link">Register</Button>
-            </Link>
-            <Link to={`/users/:Username`}>
-                <Button variant="link">Profile</Button>
-            </Link>
+            <Link to={`/register`}>Register</Link>
+            <Link to={`/userinfo/${user}`}>MyMovies</Link>
+            <Link to={`/user/${user}`}>Profile</Link>
 
               <Route exact path="/" render={() => {
                 if(!user) return <LoginView onLoggedIn={user =>
@@ -172,13 +170,13 @@ export class MainView extends React.Component {
                   m.Genre.Name === match.params.name)}/>}
               }/>
 
-              <Route path="/users/:Username" render={() => {
+              <Route path="/user/:Username" render={() => {
               return <ProfileView movies={movies} 
-              onUpdatedUserInfo={this.onUpdatedUserInfo} 
-              getMovies={this.getMovies} 
-              getUser={this.getUser}/>}}/>
+              onUpdatedUserInfo={this.onUpdatedUserInfo}/>}}/>
 
-
+              <Route path="/userinfo/:Username" render={() => {
+                // if (!movies) return <div className="main-view"/>;
+                return <ProfileViewInfo user={user}/>}}/>
           </div>
         </Router>
       );
