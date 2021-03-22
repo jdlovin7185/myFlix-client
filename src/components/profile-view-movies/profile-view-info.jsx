@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -45,6 +46,18 @@ export class ProfileViewInfo extends React.Component {
   });
  }
 
+ removeFav(movies) {
+  let token = localStorage.getItem('token');
+  let url = 'https://myflix1-0.herokuapp.com/users/' + localStorage.getItem('user') + '/movies/' + movies._id;
+  axios.delete(url, {headers: {Authorization: `Bearer ${token}`},
+  })
+  .then((response) => {
+    console.log(response);
+  });
+  alert('Removed from the list!');
+  }
+
+
 
 
   render() {
@@ -81,6 +94,9 @@ export class ProfileViewInfo extends React.Component {
                   </Link>
                 </Card.Body>
               </Card>
+              <Card.Footer>
+                <Button variant="secondary" onClick={() => this.removeFav(movies)}>Remove from list</Button>
+              </Card.Footer>
           </div>
           )
         })
