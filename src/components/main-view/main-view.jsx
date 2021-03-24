@@ -5,8 +5,16 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
+import { connect } from 'react-redux';
+
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Link } from "react-router-dom";
+
+// #0
+import { setMovies } from '../../actions/actions';
+
+//we haven't written this one yet
+// import MoviesList from '../../movies-list/movie-list';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -34,10 +42,9 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      // Assign the result to the state
-      this.setState({
-        movies: response.data
-      });
+
+      // #1
+      this.props.setMovies(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -116,7 +123,9 @@ export class MainView extends React.Component {
     };
 
     render() {
-      const {movies, user} = this.state;
+      // #2
+      const { movies } = this.props;
+      const { user } = this.state;
 
       
       // if (!register) return <RegistrationView onRegistered={register =>
@@ -183,3 +192,11 @@ export class MainView extends React.Component {
       );
     }
 }
+
+// #3
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+//#4
+export default connect(mapStateToProps, { setMovies } )(MainView);
