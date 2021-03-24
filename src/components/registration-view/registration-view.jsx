@@ -4,35 +4,63 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import './registration-view.scss';
+import axios from 'axios';
+
 
 export function RegistrationView(props) {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-  const [ email, setEmail ] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+    
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email);
-    props.onRegistered(username)
+    axios.post('https://myflix1-0.herokuapp.com/users', {
+    Username: username,
+    Password: password,
+    Email: email
+    })
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        window.open('/','_self');
+        // The second argument '_self' is necessary so that 
+        // the page will open in the current tab 
+    })
+      .catch(e => {
+        console.log('error registering the user');
+        alert('Something wasn\'t entered right');
+    });
   };
+
 
   return (
     <Form className="registration-form">
-      <h1>Welcome to the registration page!</h1>
-      <Form.Group controlId="formGroupUsername">
+      <h2>Welcome to the registration page!</h2>
+      <Form.Group controlId="formBasicUsername">
           <Form.Label>Username:</Form.Label>
-          <Form.Control type="username" value={username}
-      onChange={e => setUsername(e.target.value)}/>
+          <Form.Control 
+          type="username" 
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          required/>
       </Form.Group>
-      <Form.Group controlId="formGroupPassword">
+      <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" value={password}
-          onChange={e => setPassword(e.target.value)} />
+          <Form.Control 
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)} 
+          required
+          minLength="8"/>
       </Form.Group>   
-      <Form.Group controlId="formGroupEmail">
+      <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email sm" value={email}
-          onChange={e => setEmail(e.target.value)} />
+          <Form.Control 
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)} 
+          required/>
       </Form.Group>
       <Button variant="primary" type="submit" 
         onClick={handleSubmit}>
@@ -41,3 +69,12 @@ export function RegistrationView(props) {
     </Form>
   );
 }
+
+// RegistrationView.propTypes = {
+//   register: PropTypes.shape({
+//     Username: PropTypes.string.isRequired,
+//     Password: PropTypes.string.isRequired,
+//     Email: PropTypes.string.isRequired
+//   }),
+//   onRegistered: PropTypes.func
+// }

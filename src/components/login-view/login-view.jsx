@@ -4,19 +4,22 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
+import {Link} from 'react-router-dom';
+
 import './login-view.scss';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://myflix1-0.herokuapp.com/movies', {
-      Username: username,
-      Password: password
-    })
+  //  Send a request to the server for authentication
+  axios.post('https://myflix1-0.herokuapp.com/login', {
+    Username: username,
+    Password: password
+  })
   .then(response => {
     const data = response.data;
     props.onLoggedIn(data);
@@ -25,6 +28,7 @@ export function LoginView(props) {
     console.log(e)
     });
   };
+
 
     return (
       <Form className="login-border"> 
@@ -51,6 +55,6 @@ LoginView.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired
-  }).isRequired,
-  onLoggedIn: PropTypes.func
-};
+  }),
+  onLoggedIn: PropTypes.func.isRequired
+}
