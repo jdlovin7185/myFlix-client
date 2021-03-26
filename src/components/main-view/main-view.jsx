@@ -3,7 +3,6 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 
 import { connect } from 'react-redux';
 
@@ -13,8 +12,8 @@ import { Link } from "react-router-dom";
 // #0
 import { setMovies } from '../../actions/actions';
 
-//we haven't written this one yet
-// import MoviesList from '../../movies-list/movie-list';
+
+import MoviesList from '../movies-list/movies-list';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -146,7 +145,7 @@ export class MainView extends React.Component {
                 <Nav className="mr-auto">
                   <Link to={`/register`}>Register</Link>
                   <Link to={`/userinfo/${user}`}>Profile</Link>
-                  <Link to={`/user/${user}`}>Need to update info?</Link>
+                  <Link to={`/user/${user}`}>Update Profile</Link>
                   <Nav.Link onClick={() => this.onLoggedOut()}>Logout</Nav.Link>
                   <Nav.Link onClick={() => this.removeUser()}>Deactivate Account</Nav.Link>
                 </Nav>
