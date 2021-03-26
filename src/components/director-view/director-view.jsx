@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './director-view.scss';
 
-import {Card} from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 
 export class DirectorView extends React.Component {
 
@@ -21,7 +21,7 @@ export class DirectorView extends React.Component {
     
     return (
       <div className="director-view">
-        <Card>
+        <Card style={{ width: '18rem' }}>
           <Card.Title>{movies.Director.name}</Card.Title>
           <Card.Body>
             <Card.Text>{movies.Director.Bio}</Card.Text>
