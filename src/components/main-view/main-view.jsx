@@ -24,6 +24,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { ProfileViewInfo } from '../profile-view-movies/profile-view-info';
 
 export class MainView extends React.Component {
+  signal = axios.CancelToken.source();
 
   constructor() {
     super();
@@ -57,6 +58,10 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
+  }
+
+  componentWillUnmount() {
+    this.signal.cancel('Api is being cancelled');
   }
   // Logs user out
   onLoggedOut() {
