@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import CardColumns from 'react-bootstrap/CardColumns';
 
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,8 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
 
     return (
-      <Card>
+    <div className="movie-card">
+      <Card style={{ width: '50rem' }}>
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
@@ -22,6 +24,7 @@ export class MovieCard extends React.Component {
           </Link>
         </Card.Body>
       </Card>
+    </div>
     );
   }
 }

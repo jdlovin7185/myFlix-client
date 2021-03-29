@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
 import axios from 'axios';
@@ -12,6 +12,14 @@ export class MovieView extends React.Component {
     super();
 
     this.state = {};
+  }
+
+  backButton = () => {
+    let history = useHistory();
+
+    function handleClick() {
+      history.push('');
+    }
   }
 
   addToFav(movie) {
@@ -33,7 +41,7 @@ export class MovieView extends React.Component {
     
     return (
       <div className="movie-view movie-border">
-        <Card>
+        <Card style={{ width: '50rem' }}>
           <Image className="movie-poster" src={movie.ImagePath} rounded/>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Body>
@@ -42,7 +50,7 @@ export class MovieView extends React.Component {
             <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
           </Card.Body>
         </Card>
-        <Card.Footer>
+        <Card.Footer style={{ width: '50rem' }}>
         <Link to={`/director/${movie.Director.Name}`}>
             <Button variant="link">Director</Button>
           </Link>
@@ -50,6 +58,7 @@ export class MovieView extends React.Component {
             <Button variant="link">Genre</Button>
           </Link>
             <Button variant="secondary" onClick={() => this.addToFav(movie)}>Add to Favorites</Button>
+            <Button onClick={() => this.backButton(history)}>Back to previous</Button>
         </Card.Footer>
       </div>
     );

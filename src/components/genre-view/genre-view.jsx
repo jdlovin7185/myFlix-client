@@ -20,7 +20,7 @@ export class GenreView extends React.Component {
     
     return (
       <div className="genre-view">
-        <Card>
+        <Card border="primary" style={{ width: '18rem' }}>
           <Card.Title>{movies.Genre.Name}</Card.Title>
           <Card.Body>
             <Card.Text>{movies.Genre.Description}</Card.Text>

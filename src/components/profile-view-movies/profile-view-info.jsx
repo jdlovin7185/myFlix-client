@@ -46,6 +46,24 @@ export class ProfileViewInfo extends React.Component {
   });
  }
 
+ // Removes a user from the database
+ removeUser(token) {
+  let url = `https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}`;
+  axios.delete(url, {headers: {Authorization: `Bearer ${token}`}
+  }) 
+  .then(() => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+    this.setState({
+      user: null,
+});
+alert('Your account has been deleted');
+})
+.catch(e => {
+  console.log(e)
+});
+};
+
  removeFav(movies) {
   let token = localStorage.getItem('token');
   let url = 'https://myflix1-0.herokuapp.com/users/' + localStorage.getItem('user') + '/movies/' + movies._id;
@@ -53,9 +71,9 @@ export class ProfileViewInfo extends React.Component {
   })
   .then((response) => {
     console.log(response);
-  });
+});
   alert('Removed from the list!');
-  }
+}
 
 
 
@@ -80,6 +98,11 @@ export class ProfileViewInfo extends React.Component {
           <Card.Text>Email: {user.Email}</Card.Text>
           <Card.Text></Card.Text>
         </Card.Body>
+        <Card.Footer>
+          <Link to={`/user/${user}`}>
+            <Button variant="link">Update Profile</Button>
+          </Link>
+        </Card.Footer>
       </Card>
       <div>
         <h2>Favorite Movies</h2>
@@ -102,6 +125,7 @@ export class ProfileViewInfo extends React.Component {
         })
       }
   </div>
+    <Button onClick={() => this.removeUser()}>Deactivate Account</Button>
   </div>
     );
   }
