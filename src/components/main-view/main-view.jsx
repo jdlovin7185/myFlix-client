@@ -10,8 +10,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Link } from "react-router-dom";
 
 // #0
-import { setMovies } from '../../actions/actions';
-
+import { setMovies, setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 
@@ -94,42 +93,21 @@ export class MainView extends React.Component {
     let url = `https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}`;
     axios.get(url, {headers: {Authorization: `Bearer ${token}`},
   })
-  .then((response) => {
-    this.setState({
-      Username: response.data.Username,
-      Email: response.data.Email,
-      FavoriteMovies: response.data.FavoriteMovies,
-    });
-  });
- }
+  .then(response => {
 
-// Removes a user from the database
-  removeUser(token) {
-        let url = `https://myflix1-0.herokuapp.com/users/${localStorage.getItem('user')}`;
-        axios.delete(url, {headers: {Authorization: `Bearer ${token}`}
-        }) 
-        .then(() => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-          this.setState({
-            user: null,
-      });
-      alert('Your account has been deleted');
-      })
-      .catch(e => {
-        console.log(e)
-      });
-    };
+    // #1
+    this.state.setUser(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  };
+ 
 
     render() {
       // #2
       const { movies } = this.props;
       const { user } = this.state;
-
-      
-      // if (!register) return <RegistrationView onRegistered={register =>
-      //   this.onRegistered(register)} />;
-
 
       // before the movies have been loaded
       if (!movies) return <div className="main-view"/>;
@@ -143,11 +121,8 @@ export class MainView extends React.Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                  <Link to={`/register`}>Register</Link>
-                  <Link to={`/userinfo/${user}`}>Profile</Link>
-                  <Link to={`/user/${user}`}>Update Profile</Link>
+                  <Nav.Link as={Link} to={`/userinfo/${user}`}>Profile</Nav.Link>
                   <Nav.Link onClick={() => this.onLoggedOut()}>Logout</Nav.Link>
-                  <Nav.Link onClick={() => this.removeUser()}>Deactivate Account</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
            </Navbar>
@@ -163,17 +138,13 @@ export class MainView extends React.Component {
               <Route path="/movies/:movieId" render={({match}) =>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
 
-              {/* <Route exact path="/" render={() =>
-              movies.map( m => <MovieCard key={m._id} movie={m}/>)}/> */}
 
               <Route path="/director/:name" render={({match}) => {
-                // if (!movies) return <div className="main-view"/>;
               return <DirectorView movies={movies.find(m =>
                   m.Director.Name === match.params.name)}/>}
               }/>
 
               <Route path="/genre/:name" render={({match}) => {
-                // if (!movies) return <div className="main-view"/>;
                 return <GenreView movies={movies.find(m =>
                   m.Genre.Name === match.params.name)}/>}
               }/>
@@ -183,7 +154,6 @@ export class MainView extends React.Component {
               onUpdatedUserInfo={this.onUpdatedUserInfo}/>}}/>
 
               <Route path="/userinfo/:Username" render={() => {
-                // if (!movies) return <div className="main-view"/>;
                 return <ProfileViewInfo user={user}
                 movies={movies}/>}}/>
           </div>
@@ -197,5 +167,5 @@ let mapStateToProps = state => {
   return { movies: state.movies }
 }
 
-//#4
-export default connect(mapStateToProps, { setMovies } )(MainView);
+// #4
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);
