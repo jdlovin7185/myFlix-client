@@ -1,8 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
+import axios from 'axios';
 
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Image} from 'react-bootstrap';
 
 export class MovieView extends React.Component {
 
@@ -10,6 +12,17 @@ export class MovieView extends React.Component {
     super();
 
     this.state = {};
+  }
+
+  addToFav(movie) {
+  let token = localStorage.getItem('token');
+  let url = 'https://myflix1-0.herokuapp.com/users/' + localStorage.getItem('user') + '/movies/' + movie._id;
+  axios.post(url, {headers: {Authorization: `Bearer ${token}`},
+  })
+  .then((response) => {
+    console.log(response);
+  });
+  alert('Added to the list!');
   }
 
   render() {
@@ -21,7 +34,7 @@ export class MovieView extends React.Component {
     return (
       <div className="movie-view movie-border">
         <Card>
-          <Card.Img className="movie-poster" src={movie.ImagePath}/>
+          <Image className="movie-poster" src={movie.ImagePath} rounded/>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Body>
             <Card.Text>{movie.Description}</Card.Text>
@@ -33,9 +46,10 @@ export class MovieView extends React.Component {
         <Link to={`/director/${movie.Director.Name}`}>
             <Button variant="link">Director</Button>
           </Link>
-          <Link to={`/genres/${movie.Genre.Name}`}>
+          <Link to={`/genre/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
+            <Button variant="secondary" onClick={() => this.addToFav(movie)}>Add to Favorites</Button>
         </Card.Footer>
       </div>
     );
@@ -47,8 +61,7 @@ MovieView.propTypes = {
     ImagePath: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    Genre: PropTypes.string.isRequired,
-    Director: PropTypes.string.isRequired
-  }),
-  onClick: PropTypes.func.isRequired
+    Genre: PropTypes.object.isRequired,
+    Director: PropTypes.object.isRequired
+  })
 }
