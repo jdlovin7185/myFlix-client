@@ -14,6 +14,6 @@ Some decisions I took on the back-end ended up hurting me when it came to naming
 a singular instead of a plurals. Example: Movie instead of Movies. This made me re-write the entire database and I realized I didn't pay to the fine details of how to properly write the database. The front-end part I tried to incorporate different components into one view, when I could just as easily create 2 different views to save time. Ended up creating 2 separate views for the user views.
 
 Screenshot of site:
-![alt text](https://github.com/jdlovin7185/myFlix-client/blob/main/screenshot.png
+![alt text](https://github.com/jdlovin7185/myFlix-client/blob/main/screenshot.jpg
 
 Technologies used: Express, JavaScript, Node.js, MongoDB
