@@ -16,4 +16,4 @@ a singular instead of a plurals. Example: Movie instead of Movies. This made me 
 Screenshot of site:
 ![alt text](https://github.com/jdlovin7185/myFlix-client/blob/main/screenshot.jpg?raw=true)
 
-Technologies used: Express, JavaScript, Node.js, MongoDB
+Technologies used: Express, JavaScript, Node.js, MongoDB, React, Redux
