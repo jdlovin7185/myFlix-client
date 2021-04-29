@@ -16,9 +16,7 @@ export class DirectorView extends React.Component {
     const { movies } = this.props;
 
     if (!movies) return null;
-    // if (!movies) return null;
 
-    
     return (
       <div className="director-view">
         <Card style={{ width: '18rem' }}>
