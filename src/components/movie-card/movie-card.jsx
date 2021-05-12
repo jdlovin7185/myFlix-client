@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardColumns from 'react-bootstrap/CardColumns';
+import Image from 'react-bootstrap/Image';
+import Col from 'react-bootstrap/Col';
 
 import { Link } from "react-router-dom";
 
@@ -13,9 +14,10 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
 
     return (
-    <div className="movie-card">
-      <Card style={{ width: '50rem' }}>
-        <Card.Img variant="top" src={movie.ImagePath} />
+
+    <div className="movie-card-row">
+      <Card>
+        <Image className="poster" fluid src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>

@@ -1,4 +1,21 @@
-.movie-card {
-	justify-content: space-evenly;
-	display: grid;
+@media all and (min-width: 400px) {
+	.movie-card-row {
+		float: left;
+		width: 50%;
+	}
+}
+
+// @media all and (min-width: 300px) and (max-width: 500px) {
+// 	.movie-card-row {
+// 		align-content: space-around;
+// 		margin-left: 10%;
+// 		width: 80%;
+// 	}
+// }
+
+.poster {
+	max-width: 80%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
 }

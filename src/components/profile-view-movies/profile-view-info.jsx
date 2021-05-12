@@ -83,7 +83,7 @@ alert('Your account has been deleted');
     const { user } = this.state;
 
     const favoriteMovieList = movies.filter((movies) => {
-      return this.state.user.FavoriteMovies.includes(movies._id);
+      return user.FavoriteMovies.includes(movies._id);
     });
     
 
