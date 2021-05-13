@@ -110,6 +110,7 @@ alert('Your account has been deleted');
           return (
             <div className="movie-border" key={movies._id}>
               <Card style={{ width: '40rem' }}>
+                <Card.Title>{movies.Title}</Card.Title>
                 <Image src={movies.ImagePath}/>
                 <Card.Body>
                   <Link to={`/movies/${movies._id}`}>

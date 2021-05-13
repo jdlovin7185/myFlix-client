@@ -36,12 +36,13 @@ export function RegistrationView(props) {
 
   return (
     <Form className="registration-form">
-      <h2>Welcome to the registration page!</h2>
+      <h2>Welcome to MyFlix!</h2>
       <Form.Group controlId="formBasicUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control 
           type="username" 
           value={username}
+          placeholder="Enter a username you want"
           onChange={e => setUsername(e.target.value)}
           required/>
       </Form.Group>
@@ -50,6 +51,7 @@ export function RegistrationView(props) {
           <Form.Control 
           type="password"
           value={password}
+          placeholder="Enter a password"
           onChange={e => setPassword(e.target.value)} 
           required
           minLength="8"/>
@@ -59,6 +61,7 @@ export function RegistrationView(props) {
           <Form.Control 
           type="email"
           value={email}
+          placeholder="Your email address"
           onChange={e => setEmail(e.target.value)} 
           required/>
       </Form.Group>

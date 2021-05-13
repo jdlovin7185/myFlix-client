@@ -31,26 +31,34 @@ export function LoginView(props) {
 
 
     return (
-      <Form className="login-border"> 
-        <Form.Group controlId="formGroupUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control type="text" value={username} 
-          onChange={e => setUsername(e.target.value)}/> 
-        </Form.Group>
+      <div>
+        <Form className="login-border"> 
+          <Form.Group controlId="formGroupUsername">
+            <Form.Label>Username:</Form.Label>
+            <Form.Control 
+            type="text"
+            value={username}
+            placeholder="Enter your username" 
+            onChange={e => setUsername(e.target.value)}/> 
+          </Form.Group>
 
-        <Form.Group controlId="formGroupPassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control type="password" value={password} 
-          onChange={e => setPassword(e.target.value)} />
-        </Form.Group>
-        <Button variant="primary" type="submit" 
-        onClick={handleSubmit}>
-          Submit
-        </Button>
-        <Link to={`/register`}>
-          <Button variant="link">Register</Button>
-        </Link>
-      </Form>
+          <Form.Group controlId="formGroupPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control 
+            type="password" 
+            value={password}
+            placeholder="Enter your password" 
+            onChange={e => setPassword(e.target.value)} />
+          </Form.Group>
+          <Button variant="primary" type="submit" 
+          onClick={handleSubmit}>
+            Submit
+          </Button>
+          <Link to={`/register`}>
+            <Button variant="link">Register</Button>
+          </Link>
+        </Form>
+      </div>
     );
 }
 
