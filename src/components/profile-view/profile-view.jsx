@@ -32,14 +32,15 @@ export function ProfileView(props) {
   };
 
   return (
-    <div>
-    <Form className="profile-form">
+    <div className="profile-form">
+    <Form>
       <h2>Want to change some info?</h2>
       <Form.Group controlId="formBasicUsername">
           <Form.Label>Username:</Form.Label>
           <Form.Control 
           type="username" 
           value={username}
+          placeholder="Enter new Username"
           onChange={e => setUsername(e.target.value)} />
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
@@ -47,6 +48,7 @@ export function ProfileView(props) {
           <Form.Control 
           type="password"
           value={password}
+          placeholder="Enter new Password"
           onChange={e => setPassword(e.target.value)} />
       </Form.Group>   
       <Form.Group controlId="formBasicEmail">
@@ -54,6 +56,7 @@ export function ProfileView(props) {
           <Form.Control 
           type="email" 
           value={email}
+          placeholder="Enter new E-mail Address"
           onChange={e => setEmail(e.target.value)} />
       </Form.Group>
       <Button variant="primary" type="submit" 

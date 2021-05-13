@@ -41,7 +41,7 @@ export class MovieView extends React.Component {
     
     return (
       <div className="movie-border">
-        <Card style={{ width: '50rem' }}>
+        <Card style={{ width: '40rem' }}>
           <Image className="movie-poster" src={movie.ImagePath} rounded/>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Body>
@@ -50,7 +50,7 @@ export class MovieView extends React.Component {
             <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
           </Card.Body>
         </Card>
-        <Card.Footer style={{ width: '50rem' }}>
+        <Card.Footer style={{ width: '40rem' }}>
         <Link to={`/director/${movie.Director.Name}`}>
             <Button variant="link">Director</Button>
           </Link>

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -94,9 +95,8 @@ alert('Your account has been deleted');
       <div>
       <Card>
         <Card.Body>
-          <Card.Title>User: {user.Username}</Card.Title>
+          <Card.Title>Welcome, {user.Username}!</Card.Title>
           <Card.Text>Email: {user.Email}</Card.Text>
-          <Card.Text></Card.Text>
         </Card.Body>
         <Card.Footer>
           <Link to={`/user/${user}`}>
@@ -105,12 +105,12 @@ alert('Your account has been deleted');
         </Card.Footer>
       </Card>
       <div>
-        <h2>Favorite Movies</h2>
+        <h2 className="title" >Favorite Movies</h2>
         {favoriteMovieList.map((movies) => {
           return (
-            <div key={movies._id}>
-              <Card>
-                <Card.Img src={movies.ImagePath}/>
+            <div className="movie-border" key={movies._id}>
+              <Card style={{ width: '40rem' }}>
+                <Image src={movies.ImagePath}/>
                 <Card.Body>
                   <Link to={`/movies/${movies._id}`}>
                     <Card.Title>{movies.Title}</Card.Title>
@@ -118,14 +118,14 @@ alert('Your account has been deleted');
                 </Card.Body>
               </Card>
               <Card.Footer>
-                <Button variant="secondary" onClick={() => this.removeFav(movies)}>Remove from list</Button>
+                <Button variant="warning" onClick={() => this.removeFav(movies)}>Remove from list</Button>
               </Card.Footer>
           </div>
           )
         })
       }
   </div>
-    <Button onClick={() => this.removeUser()}>Deactivate Account</Button>
+    <Button className="deactivate-btn" variant="danger" onClick={() => this.removeUser()}>Deactivate Account</Button>
   </div>
     );
   }
