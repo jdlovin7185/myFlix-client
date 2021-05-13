@@ -67,32 +67,3 @@ export function ProfileView(props) {
   </div>
   );
 }
-
-
-//   componentDidMount() {
-//     let accessToken = localStorage.getItem('token');
-//     if (accessToken !== null) {
-//       this.setState({
-//         user: localStorage.getItem('user')
-//       });
-//       this.getUser(accessToken);
-//     }
-//   }
-
-//   getUser(token) {
-//     let url = 'https://myflix1-0.herokuapp.com/users/' +
-//     localStorage.getItem("user");
-//     axios.get(url, {headers: {Authorization: `Bearer ${token}`}
-//     })
-//     .then(response => {
-//       this.setState({
-//         // Returns a null user
-//         Username: response.data.Username,
-//         Email: response.data.Email,
-//         FavoriteMovies: response.data.FavoriteMovies
-//       });
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-//   }

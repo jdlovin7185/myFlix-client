@@ -29,6 +29,7 @@ export function RegistrationView(props) {
     })
       .catch(e => {
         console.log('error registering the user');
+        console.log(e);
         alert('Something wasn\'t entered right');
     });
   };

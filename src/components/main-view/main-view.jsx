@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
@@ -12,7 +11,6 @@ import { Link } from "react-router-dom";
 // #0
 import { setMovies, setUser } from '../../actions/actions';
 
-import MoviesList from '../movies-list/movies-list';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
