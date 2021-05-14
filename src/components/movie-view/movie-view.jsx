@@ -3,24 +3,17 @@ import {Link, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
 import axios from 'axios';
-
 import {Card, Button, Image} from 'react-bootstrap';
 
-export class MovieView extends React.Component {
 
+export class MovieView extends React.Component {
+  
   constructor() {
     super();
-
+    
     this.state = {};
   }
 
-  backButton = () => {
-    let history = useHistory();
-
-    function handleClick() {
-      history.push('');
-    }
-  }
 
   addToFav(movie) {
   let token = localStorage.getItem('token');
@@ -58,7 +51,6 @@ export class MovieView extends React.Component {
             <Button variant="link">Genre</Button>
           </Link>
             <Button variant="secondary" onClick={() => this.addToFav(movie)}>Add to Favorites</Button>
-            <Button onClick={() => this.backButton(history)}>Back to previous</Button>
         </Card.Footer>
       </div>
     );

@@ -65,6 +65,7 @@ alert('Your account has been deleted');
 });
 };
 
+// Removes a movie from the users list
  removeFav(movies) {
   let token = localStorage.getItem('token');
   let url = 'https://myflix1-0.herokuapp.com/users/' + localStorage.getItem('user') + '/movies/' + movies._id;
@@ -72,6 +73,8 @@ alert('Your account has been deleted');
   })
   .then((response) => {
     console.log(response);
+    // Refreshes page after a movie is removed
+    window.location.reload();
 });
   alert('Removed from the list!');
 }
